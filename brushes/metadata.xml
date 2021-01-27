@@ -1,0 +1,6 @@
+<brush name="gfx/entity_icons_musket.png" version="17">
+  <sprite id="icon_musket_01_empty" offsetY="35" ic="FF354153" width="200" height="142" img="icons\icon_musket_01_empty.png" left="-48" right="80" top="-47" bottom="-13" />
+  <sprite id="icon_musket_01_loaded" offsetY="35" ic="FF354253" width="200" height="142" img="icons\icon_musket_01_loaded.png" left="-48" right="80" top="-50" bottom="-8" />
+  <sprite id="icon_musket_01_named_01_empty" offsetY="35" ic="FF39495F" width="200" height="142" img="icons\icon_musket_01_named_01_empty.png" left="-47" right="79" top="-47" bottom="-15" />
+  <sprite id="icon_musket_01_named_01_loaded" offsetY="35" ic="FF364559" width="200" height="142" img="icons\icon_musket_01_named_01_loaded.png" left="-47" right="79" top="-50" bottom="-10" />
+</brush>
