@@ -9,5 +9,7 @@ gt.Const.Strings.MusketNames <- [
 	"Resistance",
 	"Freedom",
 	"Liberty",
-	"For the Homeland"
+	"For the Homeland",
+	"Dont Tread On Me",
+	"Mel Gibson"
 ];

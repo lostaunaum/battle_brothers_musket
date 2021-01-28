@@ -26,7 +26,7 @@ this.named_musket <- this.inherit("scripts/items/weapons/named/named_weapon", {
 	function create()
 	{
 		this.named_weapon.create();
-		this.m.Variant = this.Math.rand(1, 2);
+		this.m.Variant = 1;
 		this.updateVariant();
 		this.m.ID = "weapon.named_musket";
 		this.m.NameList = this.Const.Strings.MusketNames;
@@ -46,12 +46,12 @@ this.named_musket <- this.inherit("scripts/items/weapons/named/named_weapon", {
 		this.m.RangeMax = 6;
 		this.m.RangeIdeal = 6;
 		this.m.StaminaModifier = -12;
-		this.m.Condition = 64.0;
-		this.m.ConditionMax = 64.0;
-		this.m.RegularDamage = 50;
-		this.m.RegularDamageMax = 70;
-		this.m.ArmorDamageMult = 0.75;
-		this.m.DirectDamageMult = 0.5;
+		this.m.Condition = 60.0;
+		this.m.ConditionMax = 60.0;
+		this.m.RegularDamage = 45;
+		this.m.RegularDamageMax = 85;
+		this.m.ArmorDamageMult = 0.85;
+		this.m.DirectDamageMult = 1;
 		this.randomizeValues();
 	}
 
@@ -133,6 +133,4 @@ this.named_musket <- this.inherit("scripts/items/weapons/named/named_weapon", {
 		this.weapon.onCombatFinished();
 		this.m.IsLoaded = true;
 	}
-
 });
-

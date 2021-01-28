@@ -1,6 +1,6 @@
 this.fire_musket_skill <- this.inherit("scripts/skills/skill", {
 	m = {
-		AdditionalAccuracy = 100,
+		AdditionalAccuracy = 25,
 		AdditionalHitChance = 0,
 		SoundOnFire = []
 	},
@@ -47,11 +47,12 @@ this.fire_musket_skill <- this.inherit("scripts/skills/skill", {
 		this.m.IsTargetingActor = false;
 		this.m.InjuriesOnBody = this.Const.Injury.BurningAndPiercingBody;
 		this.m.InjuriesOnHead = this.Const.Injury.BurningAndPiercingHead;
-		this.m.DirectDamageMult = 0.45;
+		this.m.DirectDamageMult = 0.35;
 		this.m.ActionPointCost = 3;
 		this.m.FatigueCost = 5;
 		this.m.MinRange = 1;
 		this.m.MaxRange = 6;
+		this.m.MaxRangeBonus = 1;
 		this.m.MaxLevelDifference = 4;
 	}
 

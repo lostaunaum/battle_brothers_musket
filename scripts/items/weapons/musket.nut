@@ -40,16 +40,17 @@ this.musket <- this.inherit("scripts/items/weapons/weapon", {
 		this.m.ShowQuiver = true;
 		this.m.ShowArmamentIcon = true;
 		this.m.ArmamentIcon = "icon_musket_01_empty";
-		this.m.Value = 5000;
+		this.m.Value = 3000;
 		this.m.RangeMin = 1;
 		this.m.RangeMax = 6;
 		this.m.RangeIdeal = 6;
+		this.m.RangeMaxBonus = 1;
 		this.m.StaminaModifier = -12;
-		this.m.Condition = 64.0;
-		this.m.ConditionMax = 64.0;
-		this.m.RegularDamage = 50;
-		this.m.RegularDamageMax = 70;
-		this.m.ArmorDamageMult = 0.75;
+		this.m.Condition = 60.0;
+		this.m.ConditionMax = 60.0;
+		this.m.RegularDamage = 42;
+		this.m.RegularDamageMax = 82;
+		this.m.ArmorDamageMult = 1.75;
 		this.m.DirectDamageMult = 0.5;
 	}
 
