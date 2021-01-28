@@ -13,11 +13,11 @@ this.named_musket <- this.inherit("scripts/items/weapons/named/named_weapon", {
 
 		if (_l)
 		{
-			this.m.ArmamentIcon = "icon_handgonne_01_named_0" + this.m.Variant + "_loaded";
+			this.m.ArmamentIcon = "icon_musket_01_named_0" + this.m.Variant + "_loaded";
 		}
 		else
 		{
-			this.m.ArmamentIcon = "icon_handgonne_01_named_0" + this.m.Variant + "_empty";
+			this.m.ArmamentIcon = "icon_musket_01_named_0" + this.m.Variant + "_empty";
 		}
 
 		this.updateAppearance();
@@ -42,18 +42,16 @@ this.named_musket <- this.inherit("scripts/items/weapons/named/named_weapon", {
 		this.m.ShowQuiver = true;
 		this.m.ShowArmamentIcon = true;
 		this.m.Value = 5000;
-		this.m.RangeMin = 2;
-		this.m.RangeMax = 3;
-		this.m.RangeIdeal = 3;
-		this.m.RangeMaxBonus = 1;
+		this.m.RangeMin = 1;
+		this.m.RangeMax = 6;
+		this.m.RangeIdeal = 6;
 		this.m.StaminaModifier = -12;
-		this.m.Condition = 60.0;
-		this.m.ConditionMax = 60.0;
-		this.m.RegularDamage = 40;
-		this.m.RegularDamageMax = 80;
-		this.m.ArmorDamageMult = 1.2;
-		this.m.DirectDamageMult = 0.35;
-		this.m.IsEnforcingRangeLimit = true;
+		this.m.Condition = 64.0;
+		this.m.ConditionMax = 64.0;
+		this.m.RegularDamage = 50;
+		this.m.RegularDamageMax = 70;
+		this.m.ArmorDamageMult = 0.75;
+		this.m.DirectDamageMult = 0.5;
 		this.randomizeValues();
 	}
 

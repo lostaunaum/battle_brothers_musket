@@ -1,4 +1,5 @@
-gfx/entity_icons_2Hcleaver.png
+gfx/entity_tabards.png
+gfx/entity_icons_musket.png
 gfx/entity_0.png
 gfx/entity_3.png
 gfx/entity_icons.png

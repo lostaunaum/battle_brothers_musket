@@ -21,8 +21,8 @@ this.reload_musket_skill <- this.inherit("scripts/skills/skill", {
 		this.m.IsAttack = false;
 		this.m.IsRemovedAfterBattle = true;
 		this.m.IsWeaponSkill = true;
-		this.m.ActionPointCost = 9;
-		this.m.FatigueCost = 20;
+		this.m.ActionPointCost = 3;
+		this.m.FatigueCost = 5;
 		this.m.MinRange = 0;
 		this.m.MaxRange = 0;
 	}

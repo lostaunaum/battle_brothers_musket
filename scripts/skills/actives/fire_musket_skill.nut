@@ -1,6 +1,6 @@
 this.fire_musket_skill <- this.inherit("scripts/skills/skill", {
 	m = {
-		AdditionalAccuracy = 0,
+		AdditionalAccuracy = 100,
 		AdditionalHitChance = 0,
 		SoundOnFire = []
 	},
@@ -11,9 +11,9 @@ this.fire_musket_skill <- this.inherit("scripts/skills/skill", {
 
 	function create()
 	{
-		this.m.ID = "actives.fire_musket";
+		this.m.ID = "actives.fire_musket_skill";
 		this.m.Name = "Fire Musket";
-		this.m.Description = "Ignite the fuse of your Musket. Targets farther away are less likely to be hit. Can not be used while engaged in melee.";
+		this.m.Description = "Ignite the fuse of your Musket. Can not be used while engaged in melee.";
 		this.m.Icon = "skills/active_203.png";
 		this.m.IconDisabled = "skills/active_203_sw.png";
 		this.m.Overlay = "active_203";
@@ -47,12 +47,11 @@ this.fire_musket_skill <- this.inherit("scripts/skills/skill", {
 		this.m.IsTargetingActor = false;
 		this.m.InjuriesOnBody = this.Const.Injury.BurningAndPiercingBody;
 		this.m.InjuriesOnHead = this.Const.Injury.BurningAndPiercingHead;
-        this.m.DirectDamageMult = 0.5;
+		this.m.DirectDamageMult = 0.45;
 		this.m.ActionPointCost = 3;
 		this.m.FatigueCost = 5;
 		this.m.MinRange = 1;
-		this.m.MaxRange = 7;
-        this.m.MaxRangeBonus = 1;
+		this.m.MaxRange = 6;
 		this.m.MaxLevelDifference = 4;
 	}
 
@@ -137,7 +136,7 @@ this.fire_musket_skill <- this.inherit("scripts/skills/skill", {
 
 	function isUsable()
 	{
-		return this.skill.isUsable() && this.getItem().isLoaded();
+		return this.skill.isUsable() && this.getItem().isLoaded() && !this.getContainer().getActor().getTile().hasZoneOfControlOtherThan(this.getContainer().getActor().getAlliedFactions());
 	}
 
 	function getAmmo()
@@ -155,68 +154,50 @@ this.fire_musket_skill <- this.inherit("scripts/skills/skill", {
 		}
 	}
 
+	function applyEffectToTargets( _tag )
+	{
+		local user = _tag.User;
+		local targets = _tag.Targets;
+		local attackSkill = user.getCurrentProperties().getRangedSkill();
+
+		foreach( t in targets )
+		{
+			if (!t.IsOccupiedByActor || !t.getEntity().isAttackable())
+			{
+				continue;
+			}
+
+			local target = t.getEntity();
+			local success = this.attackEntity(user, target, false);
+
+			if (success && target.isAlive() && !target.isDying() && t.IsVisibleForPlayer)
+			{
+				if (user.getPos().X <= target.getPos().X)
+				{
+					for( local i = 0; i < this.Const.Tactical.ShrapnelLeftParticles.len(); i = ++i )
+					{
+						local effect = this.Const.Tactical.ShrapnelLeftParticles[i];
+						this.Tactical.spawnParticleEffect(false, effect.Brushes, t, effect.Delay, effect.Quantity, effect.LifeTimeQuantity, effect.SpawnRate, effect.Stages, this.createVec(0, 0));
+					}
+				}
+				else
+				{
+					for( local i = 0; i < this.Const.Tactical.ShrapnelRightParticles.len(); i = ++i )
+					{
+						local effect = this.Const.Tactical.ShrapnelRightParticles[i];
+						this.Tactical.spawnParticleEffect(false, effect.Brushes, t, effect.Delay, effect.Quantity, effect.LifeTimeQuantity, effect.SpawnRate, effect.Stages, this.createVec(0, 0));
+					}
+				}
+			}
+		}
+	}
+
 	function getAffectedTiles( _targetTile )
 	{
 		local ret = [
 			_targetTile
 		];
-		local ownTile = this.m.Container.getActor().getTile();
-		local dir = ownTile.getDirectionTo(_targetTile);
-
-		if (_targetTile.hasNextTile(dir))
-		{
-			local forwardTile = _targetTile.getNextTile(dir);
-
-			if (this.Math.abs(forwardTile.Level - ownTile.Level) <= this.m.MaxLevelDifference)
-			{
-				ret.push(forwardTile);
-			}
-		}
-
-		local left = dir - 1 < 0 ? 5 : dir - 1;
-
-		if (_targetTile.hasNextTile(left))
-		{
-			local forwardTile = _targetTile.getNextTile(left);
-
-			if (this.Math.abs(forwardTile.Level - ownTile.Level) <= this.m.MaxLevelDifference)
-			{
-				ret.push(forwardTile);
-			}
-
-			if (forwardTile.hasNextTile(dir))
-			{
-				forwardTile = forwardTile.getNextTile(dir);
-
-				if (this.Math.abs(forwardTile.Level - ownTile.Level) <= this.m.MaxLevelDifference)
-				{
-					ret.push(forwardTile);
-				}
-			}
-		}
-
-		local right = dir + 1 > 5 ? 0 : dir + 1;
-
-		if (_targetTile.hasNextTile(right))
-		{
-			local forwardTile = _targetTile.getNextTile(right);
-
-			if (this.Math.abs(forwardTile.Level - ownTile.Level) <= this.m.MaxLevelDifference)
-			{
-				ret.push(forwardTile);
-			}
-
-			if (forwardTile.hasNextTile(dir))
-			{
-				forwardTile = forwardTile.getNextTile(dir);
-
-				if (this.Math.abs(forwardTile.Level - ownTile.Level) <= this.m.MaxLevelDifference)
-				{
-					ret.push(forwardTile);
-				}
-			}
-		}
-
+		
 		return ret;
 	}
 
@@ -225,7 +206,6 @@ this.fire_musket_skill <- this.inherit("scripts/skills/skill", {
 		if (_skill == this)
 		{
 			_properties.RangedSkill += 10 + this.m.AdditionalAccuracy;
-			_properties.HitChanceAdditionalWithEachTile += -10 + this.m.AdditionalHitChance;
 		}
 	}
 
@@ -250,11 +230,11 @@ this.fire_musket_skill <- this.inherit("scripts/skills/skill", {
 		local tag = {
 			Skill = this,
 			User = _user,
-			TargetTile = _targetTile.getEntity()
+			TargetTile = _targetTile
 		};
 		this.Time.scheduleEvent(this.TimeUnit.Virtual, 500, this.onDelayedEffect.bindenv(this), tag);
 		this.getItem().setLoaded(false);
-		local skillToAdd = this.new("scripts/skills/actives/reload_handgonne_skill");
+		local skillToAdd = this.new("scripts/skills/actives/reload_musket_skill");
 		skillToAdd.setItem(this.getItem());
 		skillToAdd.setFatigueCost(this.Math.max(0, skillToAdd.getFatigueCostRaw() + this.getItem().m.FatigueOnSkillUse));
 		this.getContainer().add(skillToAdd);
@@ -295,19 +275,13 @@ this.fire_musket_skill <- this.inherit("scripts/skills/skill", {
 			User = user,
 			Targets = affectedTiles
 		};
-		this.Time.scheduleEvent(this.TimeUnit.Virtual, 200, this.onPerformAttack, tag);
+		this.Time.scheduleEvent(this.TimeUnit.Virtual, 200, this.applyEffectToTargets.bindenv(this), tag);
 		return true;
-	}
-
-	function onPerformAttack( _tag )
-	{
-		_tag.Skill.getContainer().setBusy(false);
-		return _tag.Skill.attackEntity(_tag.User, _tag.TargetTile.getEntity());
 	}
 
 	function onRemoved()
 	{
-		this.getContainer().removeByID("actives.reload_handgonne");
+		this.getContainer().removeByID("actives.reload_musket");
 	}
 
 });
