@@ -50,8 +50,8 @@ this.named_musket <- this.inherit("scripts/items/weapons/named/named_weapon", {
 		this.m.ConditionMax = 60.0;
 		this.m.RegularDamage = 45;
 		this.m.RegularDamageMax = 85;
-		this.m.ArmorDamageMult = 0.85;
-		this.m.DirectDamageMult = 1;
+		this.m.ArmorDamageMult = 1;
+		this.m.DirectDamageMult = 0.25;
 		this.randomizeValues();
 	}
 

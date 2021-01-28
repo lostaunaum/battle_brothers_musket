@@ -48,10 +48,10 @@ this.musket <- this.inherit("scripts/items/weapons/weapon", {
 		this.m.StaminaModifier = -12;
 		this.m.Condition = 60.0;
 		this.m.ConditionMax = 60.0;
-		this.m.RegularDamage = 42;
-		this.m.RegularDamageMax = 82;
-		this.m.ArmorDamageMult = 1.75;
-		this.m.DirectDamageMult = 0.5;
+		this.m.RegularDamage = 40;
+		this.m.RegularDamageMax = 80;
+		this.m.ArmorDamageMult = 1;
+		this.m.DirectDamageMult = 0.25;
 	}
 
 	function getAmmoID()

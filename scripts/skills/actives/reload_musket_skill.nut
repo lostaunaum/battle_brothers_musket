@@ -3,7 +3,7 @@ this.reload_musket_skill <- this.inherit("scripts/skills/skill", {
 	function create()
 	{
 		this.m.ID = "actives.reload_musket";
-		this.m.Name = "Reload";
+		this.m.Name = "Reload your Musket";
 		this.m.Description = "Ready another shot to be fired. Can not be used while engaged in melee.";
 		this.m.Icon = "skills/active_204.png";
 		this.m.IconDisabled = "skills/active_204_sw.png";
@@ -21,8 +21,8 @@ this.reload_musket_skill <- this.inherit("scripts/skills/skill", {
 		this.m.IsAttack = false;
 		this.m.IsRemovedAfterBattle = true;
 		this.m.IsWeaponSkill = true;
-		this.m.ActionPointCost = 3;
-		this.m.FatigueCost = 5;
+		this.m.ActionPointCost = 9;
+		this.m.FatigueCost = 20;
 		this.m.MinRange = 0;
 		this.m.MaxRange = 0;
 	}
